@@ -24,6 +24,6 @@ doctrine:
             Domain:
                 is_bundle: false
                 type: yml
-                dir: '%kernel.project_dir%/src/Domain/Resources/doctrine/mapping'
+                dir: '%kernel.project_dir%/src/Infrastructure/Resources/doctrine/mapping'
                 prefix: 'App\Domain'
                 alias: App

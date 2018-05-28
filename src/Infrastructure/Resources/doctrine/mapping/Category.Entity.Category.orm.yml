@@ -1,4 +1,4 @@
-App\Aurora\Domain\Category\Entity\Category:
+App\Domain\Category\Entity\Category:
     type: entity
     table: Category
     id:
