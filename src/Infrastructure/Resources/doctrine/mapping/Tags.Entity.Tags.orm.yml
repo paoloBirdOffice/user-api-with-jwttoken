@@ -1,0 +1,11 @@
+App\Aurora\Domain\Tags\Entity\Tags:
+    type: entity
+    table: Tags
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255

@@ -1,0 +1,11 @@
+App\Aurora\Domain\Category\Entity\Category:
+    type: entity
+    table: Category
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
