@@ -1,0 +1,11 @@
+App\Domain\Status\Entity\Status:
+    type: entity
+    table: Status
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 100

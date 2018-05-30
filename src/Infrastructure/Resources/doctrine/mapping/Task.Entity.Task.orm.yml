@@ -1,0 +1,15 @@
+App\Domain\Task\Entity\Task:
+    type: entity
+    table: Task
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+        date:
+            type: datetime
