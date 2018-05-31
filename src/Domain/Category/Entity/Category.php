@@ -3,6 +3,9 @@
 namespace App\Domain\Category\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
  * @ORM\Entity(repositoryClass="App\Domain\Category\Repository\CategoryRepository")
@@ -21,6 +24,15 @@ class Category
      */
     private $name;
 
+    /**
+     *@ORM\OneToMany(targetEntity="App\Domain\Task\Entity\Task", mappedBy="category")
+     */
+    private $tasks;
+
+    public function __construct() {
+        $this->tasks = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -36,5 +48,9 @@ class Category
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getTasks(){
+        return $this->tasks;
     }
 }

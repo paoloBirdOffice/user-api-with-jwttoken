@@ -13,3 +13,20 @@ App\Domain\Task\Entity\Task:
             type: text
         date:
             type: datetime
+    manyToOne:
+        category:
+            targetEntity: App\Domain\Category\Entity\Category
+            inversedBy: tasks
+            joinColumn:
+                name: category_id
+                referencedColumnName: id
+    oneToOne:
+        status:
+            targetEntity: App\Domain\Status\Entity\Status
+            joinColumn:
+                name: status_id
+                referencedColumnName: id
+    oneToMany:
+        tags:
+            targetEntity: App\Domain\Tags\Entity\Tags
+            mappedBy: task

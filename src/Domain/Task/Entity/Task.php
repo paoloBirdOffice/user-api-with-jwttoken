@@ -31,6 +31,27 @@ class Task
      */
     private $date;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Category\Entity\Category", inversedBy="tasks")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
+    /**
+     * @OneToOne(targetEntity="App\Domain\Status\Entity\Status")
+     * @JoinColumn(name="status_id", referencedColumnName="id")
+     */
+    private $status;
+
+    /**
+     *@ORM\OneToMany(targetEntity="App\Domain\Tags\Entity\Tags", mappedBy="task")
+     */
+    private $tags;
+
+    public function __construct() {
+        $this->tags = new ArrayCollection();
+    }
+
     public function getId()
     {
         return $this->id;
@@ -70,5 +91,18 @@ class Task
         $this->date = $date;
 
         return $this;
+    }
+
+    public function setCategory($category){
+        $this->category = $category;
+        return $this;
+    }
+
+    public function getCategory(){
+        return $this->category;
+    }
+
+    public function getTags(){
+        return $this->tags;
     }
 }

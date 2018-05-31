@@ -21,6 +21,12 @@ class Tags
      */
     private $name;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Task\Entity\Task", inversedBy="tags")
+     * @ORM\JoinColumn(name="task_id", referencedColumnName="id")
+     */
+    private $task;
+
     public function getId()
     {
         return $this->id;
@@ -36,5 +42,14 @@ class Tags
         $this->name = $name;
 
         return $this;
+    }
+
+    public function setTask($task){
+        $this->task = $task;
+        return $this;
+    }
+
+    public function getTask(){
+        return $this->task;
     }
 }

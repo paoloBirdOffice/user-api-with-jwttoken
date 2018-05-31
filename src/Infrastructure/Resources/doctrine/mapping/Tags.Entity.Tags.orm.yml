@@ -9,3 +9,10 @@ App\Domain\Tags\Entity\Tags:
         name:
             type: string
             length: 255
+    manyToOne:
+        task:
+            targetEntity: App\Domain\Task\Entity\Task
+            inversedBy: tags
+            joinColumn:
+                name: task_id
+                referencedColumnName: id
