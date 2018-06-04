@@ -20,12 +20,6 @@ App\Domain\Task\Entity\Task:
             joinColumn:
                 name: category_id
                 referencedColumnName: id
-    oneToOne:
-        status:
-            targetEntity: App\Domain\Status\Entity\Status
-            joinColumn:
-                name: status_id
-                referencedColumnName: id
     oneToMany:
         tags:
             targetEntity: App\Domain\Tags\Entity\Tags

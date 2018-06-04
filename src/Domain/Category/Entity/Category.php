@@ -3,11 +3,13 @@
 namespace App\Domain\Category\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="App\Domain\Category\Repository\CategoryRepository")
  */
 class Category

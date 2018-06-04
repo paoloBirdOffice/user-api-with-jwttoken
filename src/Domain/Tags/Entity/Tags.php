@@ -3,8 +3,10 @@
 namespace App\Domain\Tags\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="App\Domain\Tags\Repository\TagsRepository")
  */
 class Tags

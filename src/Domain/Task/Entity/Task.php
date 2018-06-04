@@ -3,8 +3,12 @@
 namespace App\Domain\Task\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
+
 
 /**
+ * @ApiResource
  * @ORM\Entity(repositoryClass="App\Domain\Task\Repository\TaskRepository")
  */
 class Task
@@ -27,6 +31,11 @@ class Task
     private $description;
 
     /**
+     * @ORM\Column(type="string", length=100)
+     */
+    private $status;
+
+    /**
      * @ORM\Column(type="datetime")
      */
     private $date;
@@ -36,12 +45,6 @@ class Task
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
-
-    /**
-     * @OneToOne(targetEntity="App\Domain\Status\Entity\Status")
-     * @JoinColumn(name="status_id", referencedColumnName="id")
-     */
-    private $status;
 
     /**
      *@ORM\OneToMany(targetEntity="App\Domain\Tags\Entity\Tags", mappedBy="task")
@@ -77,6 +80,18 @@ class Task
     public function setDescription(?string $description): self
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    public function getStatus(): ?string
+    {
+        return $this->status;
+    }
+
+    public function setStatus(?string $status): self
+    {
+        $this->status = $status;
 
         return $this;
     }
