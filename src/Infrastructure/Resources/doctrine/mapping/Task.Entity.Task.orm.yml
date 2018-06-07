@@ -13,6 +13,9 @@ App\Domain\Task\Entity\Task:
             type: text
         date:
             type: datetime
+        status:
+            type: string
+            length: 100
     manyToOne:
         category:
             targetEntity: App\Domain\Category\Entity\Category
