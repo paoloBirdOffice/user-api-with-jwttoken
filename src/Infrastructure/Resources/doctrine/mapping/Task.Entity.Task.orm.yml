@@ -11,19 +11,29 @@ App\Domain\Task\Entity\Task:
             length: 255
         description:
             type: text
-        date:
+        dateCreation:
             type: datetime
-        status:
-            type: string
-            length: 100
+        lastUpdate:
+            type: datetime
     manyToOne:
-        category:
-            targetEntity: App\Domain\Category\Entity\Category
-            inversedBy: tasks
-            joinColumn:
-                name: category_id
-                referencedColumnName: id
+            status:
+                targetEntity: App\Domain\Status\Entity\Status
+                inversedBy: tasks
+                joinColumn:
+                    name: status_id
+                    referencedColumnName: id
     oneToMany:
-        tags:
-            targetEntity: App\Domain\Tags\Entity\Tags
-            mappedBy: task
+            tags:
+                targetEntity: App\Domain\Tag\Entity\Tag
+                mappedBy: task
+    manyToMany:
+            categories:
+                targetEntity: App\Domain\Category\Entity\Category
+                joinTable:
+                    name: tasks_categories
+                    joinColumns:
+                        task_id:
+                          referencedColumnName: id
+                    inverseJoinColumns:
+                        category_id:
+                          referencedColumnName: id

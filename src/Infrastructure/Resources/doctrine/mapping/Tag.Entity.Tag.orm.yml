@@ -1,6 +1,6 @@
-App\Domain\Tags\Entity\Tags:
+App\Domain\Tag\Entity\Tag:
     type: entity
-    table: Tags
+    table: Tag
     id:
         id:
             type: integer

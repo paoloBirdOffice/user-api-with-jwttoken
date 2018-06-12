@@ -24,5 +24,15 @@ services:
         resource: '../src/Presentation/Controller'
         tags: ['controller.service_arguments']
 
+    app_api.event.authentication_success_listener:
+            class: App\Api\User\Event\AuthenticationSuccessListener
+            tags:
+                - { name: kernel.event_listener, event: lexik_jwt_authentication.authentication_success, method: onAuthenticationSuccessResponse }
+
+    app_api.event.authentication_failure:
+            class: App\Api\User\Event\AuthenticationFailureListener
+            tags:
+                - { name: kernel.event_listener, event: lexik_jwt_authentication.authentication_failure, method: onAuthenticationFailureResponse }
+
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -5,16 +5,3 @@ App\Domain\User\Entity\User:
         id:
             type: integer
             generator: { strategy: AUTO }
-    fields:
-        fullName:
-            type: string
-        username:
-            type: string
-            unique: true
-        email:
-            type: string
-            unique: true
-        password:
-            type: string
-        roles:
-            type: json

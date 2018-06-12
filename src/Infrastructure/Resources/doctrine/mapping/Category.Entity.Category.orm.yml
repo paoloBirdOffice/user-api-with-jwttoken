@@ -1,6 +1,6 @@
 App\Domain\Category\Entity\Category:
     type: entity
-    table: Category
+    table: category
     id:
         id:
             type: integer
@@ -9,7 +9,3 @@ App\Domain\Category\Entity\Category:
         name:
             type: string
             length: 255
-    oneToMany:
-        tasks:
-            targetEntity: App\Domain\Task\Entity\Task
-            mappedBy: category

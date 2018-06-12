@@ -2,56 +2,58 @@
 
 namespace App\Domain\Task\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
  * @ApiResource
- * @ORM\Entity(repositoryClass="App\Domain\Task\Repository\TaskRepository")
  */
 class Task
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
-     * @ORM\Column(type="integer")
+     * @var int
      */
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @var string
      */
     private $title;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
+     * @var string
      */
     private $description;
 
     /**
-     * @ORM\Column(type="string", length=100)
+     * @var \DateTime
+     */
+    private $dateCreation;
+
+    /**
+     * @var \DateTime
+     */
+    private $lastUpdate;
+
+    /**
+     * @var int
      */
     private $status;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @var array
      */
-    private $date;
+    private $categories;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Domain\Category\Entity\Category", inversedBy="tasks")
-     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
-     */
-    private $category;
-
-    /**
-     *@ORM\OneToMany(targetEntity="App\Domain\Tags\Entity\Tags", mappedBy="task")
+     * @var array
      */
     private $tags;
 
-    public function __construct() {
+    public function __construct()
+    {
+        $this->categories = new ArrayCollection();
         $this->tags = new ArrayCollection();
     }
 
@@ -84,40 +86,48 @@ class Task
         return $this;
     }
 
+    public function getDateCreation(): ?\DateTimeInterface
+    {
+        return $this->dateCreation;
+    }
+
+    public function setDateCreation(\DateTimeInterface $dateCreation): self
+    {
+        $this->dateCreation = $dateCreation;
+
+        return $this;
+    }
+
+
+    public function getLastUpdate(): \DateTime
+    {
+        return $this->lastUpdate;
+    }
+
+    public function setLastUpdate(\DateTime $lastUpdate): void
+    {
+        $this->lastUpdate = $lastUpdate;
+    }
+
     public function getStatus(): ?string
     {
         return $this->status;
     }
 
-    public function setStatus(?string $status): self
+    public function setStatus(string $status): self
     {
         $this->status = $status;
 
         return $this;
     }
 
-    public function getDate(): ?\DateTimeInterface
+    public function getCategories(): ?string
     {
-        return $this->date;
+        return $this->categories;
     }
 
-    public function setDate(\DateTimeInterface $date): self
+    public function getTags(): ?string
     {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    public function setCategory($category){
-        $this->category = $category;
-        return $this;
-    }
-
-    public function getCategory(){
-        return $this->category;
-    }
-
-    public function getTags(){
         return $this->tags;
     }
 }

@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Domain\Category\Entity;
+namespace App\Domain\Status\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ApiResource
  */
-class Category
+class Status
 {
     /**
-     * @var int
+     *@var int
      */
     private $id;
 
@@ -20,9 +21,14 @@ class Category
     private $name;
 
     /**
-     * @var string
+     * @var array
      */
     private $tasks;
+
+    public function __construct()
+    {
+        $this->tasks = new ArrayCollection();
+    }
 
     public function getId()
     {
@@ -39,5 +45,10 @@ class Category
         $this->name = $name;
 
         return $this;
+    }
+
+    public function getTasks(): ?string
+    {
+        return $this->tasks;
     }
 }

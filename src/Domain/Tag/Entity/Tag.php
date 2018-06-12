@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Domain\Category\Entity;
+namespace App\Domain\Tag\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 
 /**
  * @ApiResource
  */
-class Category
+class Tag
 {
     /**
      * @var int
@@ -20,9 +20,9 @@ class Category
     private $name;
 
     /**
-     * @var string
+     * @var int
      */
-    private $tasks;
+    private $task;
 
     public function getId()
     {
@@ -37,6 +37,18 @@ class Category
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getTask(): ?string
+    {
+        return $this->task;
+    }
+
+    public function setTask(string $task): self
+    {
+        $this->task = $task;
 
         return $this;
     }

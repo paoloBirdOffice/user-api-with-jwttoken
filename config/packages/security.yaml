@@ -1,53 +1,47 @@
 security:
     encoders:
-        App\Domain\User\Entity\User: bcrypt
-    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
+        FOS\UserBundle\Model\UserInterface: sha512
+
+    role_hierarchy:
+        ROLE_READER: ROLE_USER
+        ROLE_ADMIN: ROLE_READER
+
     providers:
-        database_users:
-            entity: { class: App\Domain\User\Entity\User, property: username }
+        fos_userbundle:
+            id: fos_user.user_provider.username_email
+
     firewalls:
+        login:
+            pattern:  ^/login
+            stateless: true
+            anonymous: true
+            provider: fos_userbundle
+            form_login:
+                check_path: /login_check
+                username_parameter: _username
+                password_parameter: _password
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+
+        main:
+            pattern: ^/api
+            provider: fos_userbundle
+            stateless: true
+            anonymous: true
+            lexik_jwt: ~
+
+        # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            # les urls auxquels s'appliquent ce firewall, dans ce cas, ce sont toutes les urls
-            pattern: ^/
 
-            # La connexion n'est pas requise sur toutes les pages
-            # par exemple la page d'accueil
-            anonymous: true
-
-            form_login:
-                # Le nom de la route de la page de connexion
-                check_path: security_login
-                # Le nom de la route où se trouve le formulaire de connexion
-                # Si un utilisateur tente d'acceder à une page protégée sans en avoir les droits
-                # il sera redirigé sur cette page
-                login_path: security_login
-                # Securisation des formulaires
-                csrf_token_generator: security.csrf.token_manager
-                # La page par defaut apres une connexion reussie
-                default_target_path: admin
-            
-            logout:
-                # La route où se trouve le process de deconnexion
-                path: security_logout
-                # La route sur laquelle doit etre rediriger l'utilisateur apres une deconnexion
-                target: index
-
-            # activate different ways to authenticate
-
-            # http_basic: true
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-
-            # form_login: true
-            # https://symfony.com/doc/current/security/form_login_setup.html
-
-    # Easy way to control access for large sections of your site
-    # Note: Only the *first* access control that matches will be used
     access_control:
-        # Les regles de securité
-        # Là dans ce cas seul les utilisateurs ayant le rôle ROLE_ADMIN
-        # peuvent acceder à toutes les pages commençant par /admin
-        - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/login_check, role: IS_AUTHENTICATED_ANONYMOUSLY }
+#       - { path: ^/, role: IS_AUTHENTICATED_ANONYMOUSLY, ips: [127.0.0.1, '%env(SECURITY_ALLOW_ORIGIN)%', 52.178.166.127, 213.41.98.10] }
+#       - { path: ^/, role: ROLE_NO_ACCESS }
+        - { path: ^/users, role: ROLE_USER, methods: [PUT] }
+        - { path: ^/users/.*, role: ROLE_USER, methods: [GET] }
+        - { path: ^/users, role: ROLE_ADMIN, methods: [GET] }
+        - { path: ^/login, roles: ROLE_NO_ACCESS }
+        - { path: ^/logout, roles: ROLE_NO_ACCESS }
