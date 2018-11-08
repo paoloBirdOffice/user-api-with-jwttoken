@@ -1,12 +1,12 @@
 # User Api platform With JWT token Skeleton
 * User Api platform With JWT token Skeleton
 * System using DDD architecture & Symfony 4
-
+```
     install docker
     sudo docker-compose up
     sudo docker-compose exec php-fpm bash
     bin/console d:s:u --force
-    
+   ``` 
     
     
 ##URL
@@ -16,7 +16,8 @@
    ### create User : http://localhost:8000/api/users
    ####HEADER
         Content-Type : application/json
-   ####Body    
+   ####Body
+   ```
         {
           "fullname": "strings",
           "username": "strings",
@@ -30,7 +31,7 @@
           "superAdmin": true,
           "passwordRequestedAt": "2018-06-12T14:37:31.902Z"
         }
-   
+   ```
    ### Login User : http://localhost:8000/login_check
    ####Body    
         form-data
